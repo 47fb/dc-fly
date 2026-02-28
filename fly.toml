@@ -1,23 +1,23 @@
-app = "discord-cafe-bot-ebmhog"
+# fly.toml app configuration file generated for dc-fly on 2026-02-28T01:43:33Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'dc-fly'
+primary_region = 'ams'
 
 [build]
 
-[[services]]
+[http_service]
   internal_port = 8080
-  protocol = "tcp"
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls"]
-    port = 443
-
-  [[services.tcp_checks]]
-    interval = 10000
-    timeout = 2000
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
